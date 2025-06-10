@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimal Task</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    input { margin-right: 10px; }
+    div { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <!-- Это корневой элемент, в который React будет рендерить наше приложение. -->
+  <div id="root"></div>
+
+  <!--
+    В реальном проекте здесь был бы <script src="./App.jsx">, обработанный Vite.
+    Для максимального упрощения, мы вставим код React прямо сюда.
+    НО ТАК ДЕЛАТЬ В ПРОДАШЕНЕ НЕЛЬЗЯ. Это только для демонстрации.
+  -->
+  <script type="module">
+    // Импортируем React и ReactDOM из CDN, чтобы не настраивать сборку проекта.
+    import React, { useState, useEffect } from 'https://esm.sh/react@18.2.0';
+    import ReactDOM from 'https://esm.sh/react-dom@18.2.0/client';
+
+    // --- НАШ REACT-КОМПОНЕНТ ---
+    function App() {
+      // Состояние для хранения данных, полученных с бэкенда.
+      const [data, setData] = useState('Загрузка...');
+      // Состояние для хранения текста из поля ввода.
+      const [inputValue, setInputValue] = useState('');
+
+      // Функция для загрузки данных с бэкенда.
+      const handleGetData = async () => {
+        // Вызываем функцию 'getValue' из нашего API, созданного в preload.js
+        const result = await window.api.getValue();
+        setData(result);
+      };
+
+      // Функция для отправки данных на бэкенд.
+      const handleSetData = async () => {
+        // Вызываем 'setValue' и передаем ей текущее значение из поля ввода.
+        await window.api.setValue(inputValue);
+        // Очищаем поле ввода после отправки.
+        setInputValue('');
+      };
+
+      // useEffect с пустым массивом зависимостей. Выполняется один раз при загрузке компонента.
+      useEffect(() => {
+        handleGetData(); // Сразу загружаем начальные данные.
+      }, []);
+
+      // JSX-разметка: то, что мы увидим на экране.
+      return React.createElement('div', null,
+        React.createElement('h1', null, 'Минимальное приложение'),
+        
+        // Блок для чтения данных
+        React.createElement('div', null,
+          React.createElement('h2', null, '1. Чтение данных'),
+          React.createElement('button', { onClick: handleGetData }, 'Получить данные с бэкенда'),
+          React.createElement('p', null, `Данные из "БД": `, React.createElement('strong', null, data))
+        ),
+
+        // Блок для записи данных
+        React.createElement('div', null,
+          React.createElement('h2', null, '2. Запись данных'),
+          React.createElement('input', {
+            type: 'text',
+            value: inputValue,
+            onChange: (e) => setInputValue(e.target.value),
+            placeholder: 'Введите новое значение'
+          }),
+          React.createElement('button', { onClick: handleSetData }, 'Сохранить на бэкенд')
+        )
+      );
+    }
+
+    // Находим корневой элемент и рендерим в него наш компонент App.
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(React.createElement(App));
+  </script>
+</body>
+</html>

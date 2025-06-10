@@ -1,0 +1,11 @@
+CREATE TABLE persons (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    surname VARCHAR(50),
+    phone VARCHAR(50)
+);
+
+Затем зайти в LibreOffice Cals и сохранить как csv при этом выбрать utf8
+Найти путь файла pwd и вписать ниже
+
+COPY persons (name, surname, phone) FROM '/path/to/data.csv' DELIMITER ',' CSV HEADER ENCODING 'UTF8';

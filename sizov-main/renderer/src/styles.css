@@ -1,0 +1,80 @@
+/* Стили для корневого элемента приложения, в который рендерится React. */
+#root {
+  display: flex; /* Включает Flexbox для дочерних элементов. */
+  flex-direction: column; /* Располагает дочерние элементы в столбец. */
+  align-items: center; /* Выравнивает дочерние элементы по центру по горизонтали. */
+  justify-content: center; /* Выравнивает дочерние элементы по центру по вертикали. */
+  font-family: 'Segoe UI'; /* Устанавливает шрифт. */
+  font-size: 18px; /* Устанавливает размер шрифта. */
+}
+
+/* Убирает отступы по умолчанию для всех параграфов. */
+p {
+  margin: 0;
+}
+
+/* Стили для списка партнеров на главной странице. */
+.partners-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none; /* Убирает маркеры списка. */
+  border: 1px solid black; /* Добавляет рамку. */
+  width: 700px; /* Фиксированная ширина. */
+  padding: 20px; /* Внутренние отступы. */
+  gap: 20px; /* Пространство между элементами списка. */
+}
+
+/* Стили для отдельной карточки партнера в списке. */
+.partner-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 700px;
+  justify-content: space-between; /* Распределяет пространство между элементами. */
+  border: 1px solid black;
+}
+
+/* Стиль для карточки партнера при наведении курсора. */
+.partner-card:hover {
+  background-color: #67BA80; /* Цвет фона. */
+  cursor: pointer; /* Изменяет курсор на указатель. */
+}
+
+/* Стиль для заголовка внутри карточки. */
+.card_heading {
+  font-size: 22px;
+  align-self: start; /* Выравнивает заголовок по началу flex-контейнера. */
+}
+
+/* Стили для заголовка страницы (логотип + текст). */
+.page-heading {
+  display: flex;
+  flex-direction: row;
+  width: 700px;
+  gap: 50px;
+}
+
+/* Стили для логотипа. */
+.page-logo {
+  width: 120px;
+}
+
+/* Контейнер для данных о партнере внутри карточки. */
+.partner-data {
+  display: flex;
+  flex-direction: column;
+  margin: 14px 40px; /* Внешние отступы. */
+}
+
+/* Общий контейнер для страниц с формами. */
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Стили для самого тега <form>. */
+form {
+  display: flex;
+  flex-direction: column;
+}
